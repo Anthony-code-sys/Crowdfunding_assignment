@@ -1,0 +1,274 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing:border-box;
+}
+
+body{
+	background-color:#ffffff ;
+	font-family:arial;
+
+}
+
+.wrapper{
+	width:100%;
+	min-height: 500px;
+	background-color:white ;
+}
+
+header{
+	width: 100%;
+	border-bottom: 1px solid gray;
+	display:flex;
+	justify-content: space-between;
+	padding: 20px 70px;
+	align-items: center;
+	background-color:white ;
+
+}
+
+header .logo{
+	display: flex;
+}
+
+header a{
+	text-decoration: none;
+}
+
+header  .logo .logo-img{
+	width: 150px;
+	
+}
+
+header .logo div span{
+	font-weight: bold;
+}
+
+header nav ul{
+	list-style-type: none;
+	display:flex;
+	gap:50px;
+	/*border:3px solid pink;*/
+	align-items:center; 
+	color:;
+
+}
+
+
+
+header nav ul li a{
+	text-decoration: none;
+	color: black;
+	
+}
+
+header nav ul li.cta{
+	border:2px solid black;
+	border-radius: 10px;
+	padding: 10px 20px;
+}
+
+/*styling the hero section*/
+.hero-section{
+	padding: 50px 100px;
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	gap:50px;
+	background-color: #E3E3E3;
+}
+/**/
+.hero-section aside{
+	/*border: 2px solid green;*/
+	width:30%;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	justify-content: center;
+}
+
+
+
+/*assssssssss*/
+
+.hero-section aside h4 span{
+	color:purple;
+}
+
+.hero-section aside h1{
+	font-size: 48px;
+	padding: 5px 0px;
+}
+
+.hero-section aside .desc {
+	/*border: 1px solid red; */
+	padding :12px 0px;
+}
+
+.hero-section aside .desc p{
+	display: flex;
+	align-items: center;
+	gap:10px;
+	font-size:13px;
+	/*border: 1px solid red; */
+}
+
+.hero-section aside .price{
+	/*padding: 10px;*/
+	/*border: 3px solid blue; */
+
+}
+
+.hero-section aside .price p{
+	margin:6px 0;
+}
+ 
+.hero-section aside .price span{
+	font-size: 40px;
+	font-weight:bold ;
+}
+
+.hero-section aside .price .month{
+	font-weight: bold;
+}
+
+
+.hero-section aside .hero-btns{
+	/*border:3px solid pink; */
+	margin:3px 0;
+
+}
+
+.hero-section aside .hero-btns div a{
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 13px;
+	background-color: purple;
+	color: white;
+	padding: 10px 20px;
+	border-radius: 5px;
+	display:inline-block;
+	gap:10px;
+
+}
+
+.hero-section aside .hero-btns div span a{
+	background-color: lightgrey;
+	color:black;
+}
+
+.hero-section aside .hero-btns p{
+	margin:5px;
+	font-size:15px ;
+}
+
+.crowdfunds{
+	width: 100%;
+	padding: 50px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 30px;	
+}
+
+.crowdfunds .card-container{
+	width: 100%;
+	display: flex;
+	gap: 30px;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.crowdfunds .card-container .card{
+	padding: 10px;
+	border: 1px solid gray;
+	border-radius: 10px;
+	width: 20%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	gap: 20px;
+	height: auto;
+
+}
+
+.card .img{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.card .img img{
+	/* width: 10	0%; */
+
+}
+
+.card a{
+	text-decoration: none;
+	color: #fff;
+	background-color: rgb(24, 24, 24);
+	border-radius: 10px;
+	padding: 10px 20px;
+	margin-bottom: 20px;
+}
+
+
+/*assssssssss
+
+
+/*image*/
+
+.hero-section .hero-image{
+	/*border: 4px solid purple;*/
+	width: 70%;
+}
+
+.hero-section .hero-image img{
+	width: 100%;
+}
+
+/* details bag */
+.breadcrumb{
+	width: 100%;
+	padding: 30px;
+	background-color: #E3E3E3;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	align-items: center;
+}
+
+.breadcrumb input{
+	padding: 15px;
+	width: 400px;
+	outline: none;
+	border: none;
+	border-radius: 10px;
+	font-size: 16px;
+}
+
+.breadcrumb button{
+	padding: 10px 30px;
+	background-color: black;
+	color: #fff;
+	border: none;
+	outline: none;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+.details{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	padding: 50px;
+
+}
+
+.details .content{
+	width: 60%;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
