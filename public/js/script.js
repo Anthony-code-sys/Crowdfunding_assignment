@@ -1,21 +1,21 @@
-fetch('https://jsonplaceholder.typicode.com/posts')
+fetch('/api/fundraisers')
   .then(response => response.json())
-  .then(json => {
-    const data = json.slice(0, 8)
-    let card = ''
-    data.forEach(item => {
+  .then(response => {
+    const fundraisers = response.data.fundraisers;
+    let card = '';
+    fundraisers.forEach(item => {
       card += `
         <div class="card">
             <div class="img">
                 <img src="./images/crowd.png" width="100px" alt="">
             </div>
-            <h3>${item.title}</h3>
-            <a href='details.html?crowd-id=${item.id}'>View Details</a>
+            <h3>${item.organizer}</h3>
+            <a href='fundraiser/${item.fundraiserId}'>View Details</a>
 
 					
             
-        </div>`
-    })
-    document.getElementById('card-container').innerHTML = card
+        </div>`;
+    });
+    document.getElementById('card-container').innerHTML = card;
   })
-  .catch(err => console.log(err))
+  .catch(err => console.log(err));

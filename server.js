@@ -12,8 +12,8 @@ app.use("/", express.static(path.join(__dirname, "public")));
 app.use(express.json());
 
 
-app.use("api/categories", categoryRouter);
-app.use("api/fundraisers", fundraiserRouter);
+app.use("/api/categories", categoryRouter);
+app.use("/api/fundraisers", fundraiserRouter);
 
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "index.html"));
