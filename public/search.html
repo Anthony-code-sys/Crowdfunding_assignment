@@ -1,44 +1,120 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title></title>
-	<link rel="stylesheet" type="text/css" href="./css/style.css">
-</head>
-<body>
-	<diV class="wrapper">
+	<head>
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="./css/style.css" />
+	</head>
+	<body>
+		<div class="wrapper">
+			<!-- the Header section -->
+			<header>
+				<!-- logo -->
+				<div class="logo">
+					<a href="index.html">
+						<h1>CrowdFunding</h1>
+					</a>
+				</div>
 
-		<!-- the Header section -->
-		<header >
-			<!-- logo -->
-			<div class="logo">
-				<a href="index.html">
-					<h1>CrowdFunding</h1>
-				</a>
+				<!-- Nav-bar -->
+				<nav>
+					<ul>
+						<li><a href="index.html">Home</a></li>
+						<li><a href="search.html">Search</a></li>
+						<li class="cta"><a href="#">Log in</a></li>
+					</ul>
+				</nav>
+			</header>
 
+			<!-- Hero section -->
+			<div class="breadcrumb">
+				<input type="text" placeholder="Search by Organizers..." id="org" />
+				<input type="text" placeholder="Search by Category..." id="cat" />
+				<input type="text" placeholder="Search by City..." id="city" />
+				<div>
+					<button type="submit" id="submitBtn">Search</button>
+					<button type="button" id="clearBtn">Clear</button>
+				</div>
 			</div>
+			<section class="crowdfunds">
+				<h1>Search Result</h1>
+				<h1 style="color: red" id="error"></h1>
+				<div class="card-container" id="card-container"></div>
+			</section>
+		</div>
+		<!-- <script src="./js/script.js"></script> -->
+		<script>
+			const submitBtn = document.getElementById("submitBtn");
+			const clearBtn = document.getElementById("clearBtn");
 
-			<!-- Nav-bar -->
-			<nav>
-				<ul>
-					<li><a href="index.html">Home</a></li>
-					<li><a href="search.html">Search</a></li>
-					<li class="cta"><a href="#">Log in</a></li>
-				</ul>
-			</nav>
-		</header>
+			submitBtn.addEventListener("click", search);
+			clearBtn.addEventListener("click", clearCheckboxes);
 
-		<!-- Hero section -->
-		<div class="breadcrumb">
-            <input type="text" placeholder="Search for CrowdFunding...">
-                <button>Search</button>
-        </div>
-		<section class="crowdfunds">
-			<h1>Search Result</h1>
-			<div class="card-container" id="card-container">
-				
-			</div>
-		</section>
-	</div>
-	<!-- <script src="./js/script.js"></script> -->
-</body>
+			function clearCheckboxes() {
+				const org = document.getElementById("org");
+				const cat = document.getElementById("cat");
+				const city = document.getElementById("city");
+
+				org.value = "";
+				cat.value = "";
+				city.value = "";
+			}
+
+			function search() {
+				let org = document.getElementById("org");
+				let cat = document.getElementById("cat");
+				let city = document.getElementById("city");
+
+				if (org.value === "" && cat.value === "" && city.value === "") {
+					alert("Please select on the criteria...");
+				} else {
+					document.getElementById("card-container").innerHTML = "";
+					document.getElementById("error").innerHTML = "";
+
+					const baseUrl = new URL("http:/localhost:3000/api/fundraisers");
+
+					if (org.value) {
+						baseUrl.searchParams.append("organizer", org.value);
+					}
+
+					if (cat.value) {
+						baseUrl.searchParams.append("category", cat.value);
+					}
+
+					if (city.value) {
+						baseUrl.searchParams.append("city", city.value);
+					}
+
+					fetch(baseUrl)
+						.then((response) => response.json())
+						.then((json) => {
+							const res = json.data.fundraisers;
+							let card = "";
+							if (!res.length) {
+								document.getElementById("error").innerHTML =
+									"No Fundraisers are found";
+							} else {
+								res.forEach((item) => {
+									card += `
+								<div class="card">
+									<div class="img">
+										<img src="./images/crowd.png" width="100px" alt="">
+									</div>
+									<h3>${item.organizer}</h3>
+									<a href='details.html?crowd-id=${item.fundraiserId}'>View Details</a>
+
+											
+									
+								</div>`;
+								});
+								document.getElementById("card-container").innerHTML = card;
+							}
+						})
+						.catch((err) => {
+							document.getElementById("error").innerHTML =
+								"No Fundraisers are found";
+						});
+				}
+			}
+		</script>
+	</body>
 </html>

@@ -32,9 +32,9 @@ async function getFundraisers(req, res) {
 
         let sql = 'SELECT `fundraiser_id` as fundraiserId, `organizer`, `caption`, `target_funding` as targetFunding, `current_funding` as currentFunding, `city`, `active`, `fundraiser`.`category_id` as categoryId, `category`.`name` as categoryName FROM `fundraiser` JOIN category ON `category`.`category_id` = `fundraiser`.`category_id` WHERE `fundraiser`.`active` = true';
 
-        if (query.search) {
+        if (query.organizer) {
             sql += ' AND `organizer` LIKE ?';
-            filterValues.push(`%${query.search}%`);
+            filterValues.push(`%${query.organizer}%`);
         }
 
         if (query.city) {
@@ -47,8 +47,12 @@ async function getFundraisers(req, res) {
             filterValues.push(query.categoryId);
         }
 
-        sql += ' ORDER BY `organizer` ASC';
+        if (query.category) {
+            sql += ' AND `category`.`name` = ?';
+            filterValues.push(query.category);
+        }
 
+        sql += ' ORDER BY `organizer` ASC';
 
         const [fundraisers] = await dbConnection.query(
             sql, filterValues
