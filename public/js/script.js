@@ -10,7 +10,7 @@ fetch('/api/fundraisers')
                 <img src="./images/crowd.png" width="100px" alt="">
             </div>
             <h3>${item.organizer}</h3>
-            <a href='fundraiser/${item.fundraiserId}'>View Details</a>
+            <a href='fundraiser?crowd-id=${item.fundraiserId}'>View Details</a>
 
 					
             
