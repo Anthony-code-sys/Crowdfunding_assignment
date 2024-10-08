@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Admin Dashboard</title>
+		<script src="https://cdn.tailwindcss.com"></script>
+	</head>
+
+	<body class="bg-gray-100 grid">
+		<!-- Navbar -->
+		<div
+			class="flex w-full bg-black fixed self-start justify-between shadow-md p-6"
+			style="z-index: 4"
+		>
+			<div class="justify-self-start">
+				<span class="text-3xl text-center text-white font-bold"
+					>Admin Dashboard<span class="text-[40px]">.</span></span
+				>
+			</div>
+			<div class="flex self-center">
+				<a
+					href="/"
+					class="text-lg text-white hover:text-gray-300 text-center mr-3 font-bold"
+					>Home</a
+				>
+			</div>
+		</div>
+
+		<!-- Admin Content -->
+		<div class="container mx-auto mt-20 p-6">
+			<!-- Fundraiser List -->
+			<div class="bg-white p-8 rounded-lg shadow-lg mb-8">
+				<h2 class="text-2xl font-bold text-gray-800 mb-6">Fundraisers</h2>
+				<table class="w-full text-left table-auto">
+					<thead>
+						<tr>
+							<th class="px-4 py-2">ID</th>
+							<th class="px-4 py-2">Title</th>
+							<th class="px-4 py-2">Target Fund</th>
+							<th class="px-4 py-2">Current Fund</th>
+							<th class="px-4 py-2">Status</th>
+							<th class="px-4 py-2">Actions</th>
+						</tr>
+					</thead>
+					<tbody id="fundraiser-list">
+						<!-- Fundraiser rows will be dynamically injected here -->
+					</tbody>
+				</table>
+			</div>
+
+			<!-- Categories List -->
+			<div class="bg-white p-8 rounded-lg shadow-lg mb-8">
+				<h2 class="text-2xl font-bold text-gray-800 mb-6">Categories</h2>
+				<table class="w-full text-left table-auto">
+					<thead>
+						<tr>
+							<th class="px-4 py-2">ID</th>
+							<th class="px-4 py-2">Category</th>
+						</tr>
+					</thead>
+					<tbody id="categories-list">
+						<!-- Category rows will be dynamically injected here -->
+					</tbody>
+				</table>
+			</div>
+
+			<!-- New Fundraiser Form -->
+			<div class="bg-white p-8 rounded-lg shadow-lg mb-8">
+				<h2 class="text-2xl font-bold text-gray-800 mb-6">
+					Add New Fundraiser
+				</h2>
+				<form id="new-fundraiser-form">
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+						<div>
+							<label
+								class="block text-gray-700 text-sm font-bold mb-2"
+								for="fundraiser-title"
+								>Caption</label
+							>
+							<input
+								class="w-full p-3 border rounded-lg text-gray-700"
+								id="fundraiser-title"
+								name="title"
+								type="text"
+								placeholder="Enter fundraiser title"
+								required
+							/>
+						</div>
+						<div>
+							<label
+								class="block text-gray-700 text-sm font-bold mb-2"
+								for="fundraiser-goal"
+								>Goal Amount (AUD)</label
+							>
+							<input
+								class="w-full p-3 border rounded-lg text-gray-700"
+								id="fundraiser-goal"
+								name="goal"
+								type="number"
+								placeholder="1000"
+								required
+							/>
+						</div>
+					</div>
+					<div class="grid grid-cols-1 md:grid-cols-2 my-2 gap-6">
+						<div>
+							<label
+								class="block text-gray-700 text-sm font-bold mb-2"
+								for="fundraiser-category"
+								>Category ID</label
+							>
+							<input
+								class="w-full p-3 border rounded-lg text-gray-700"
+								id="fundraiser-category"
+								name="categoryId"
+								type="text"
+								placeholder="Enter Category Id"
+								required
+							/>
+						</div>
+						<div>
+							<label
+								class="block text-gray-700 text-sm font-bold mb-2"
+								for="fundraiser-city"
+								>City</label
+							>
+							<input
+								class="w-full p-3 border rounded-lg text-gray-700"
+								id="fundraiser-city"
+								name="city"
+								type="text"
+								placeholder="Enter City"
+								required
+							/>
+						</div>
+						<div>
+							<label
+								class="block text-gray-700 text-sm font-bold mb-2"
+								for="fundraiser-organizer"
+								>Organizer</label
+							>
+							<input
+								class="w-full p-3 border rounded-lg text-gray-700"
+								id="fundraiser-organizer"
+								name="organizer"
+								type="text"
+								placeholder="Enter Organizer Name"
+								required
+							/>
+						</div>
+						<div>
+							<label
+								class="block text-gray-700 text-sm font-bold mb-2"
+								for="fundraiser-status"
+								>Status</label
+							>
+							<select
+								class="w-full p-3 border rounded-lg text-gray-700"
+								id="fundraiser-status"
+								name="status"
+							>
+								<option value="1">Active</option>
+								<option value="0">Inactive</option>
+								<option value="1">Completed</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="mt-6 text-center">
+						<button
+							class="bg-blue-600 text-white py-3 px-6 rounded-lg font-bold hover:bg-blue-500"
+							id="save-fundraiser-btn"
+						>
+							Save Fundraiser
+						</button>
+					</div>
+				</form>
+			</div>
+
+			<!-- Update Fundraiser Form -->
+			<div class="bg-white p-8 rounded-lg shadow-lg mb-8">
+				<h2 class="text-2xl font-bold text-gray-800 mb-6">Update Fundraiser</h2>
+				<form id="update-fundraiser-form">
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+						<div>
+							<label
+								class="block text-gray-700 text-sm font-bold mb-2"
+								for="update-fundraiser-id"
+								>Fundraiser ID</label
+							>
+							<input
+								class="w-full p-3 border rounded-lg text-gray-700"
+								id="update-fundraiser-id"
+								name="fundraiser-id"
+								type="text"
+								placeholder="Enter fundraiser ID"
+								required
+							/>
+						</div>
+						<div>
+							<label
+								class="block text-gray-700 text-sm font-bold mb-2"
+								for="update-fundraiser-title"
+								>Title</label
+							>
+							<input
+								class="w-full p-3 border rounded-lg text-gray-700"
+								id="update-fundraiser-title"
+								name="title"
+								type="text"
+								placeholder="Update title"
+								required
+							/>
+						</div>
+						<div>
+							<label
+								class="block text-gray-700 text-sm font-bold mb-2"
+								for="update-fundraiser-goal"
+								>Goal Amount (AUD)</label
+							>
+							<input
+								class="w-full p-3 border rounded-lg text-gray-700"
+								id="update-fundraiser-goal"
+								name="goal"
+								type="number"
+								placeholder="Update goal"
+								required
+							/>
+						</div>
+						<div>
+							<label
+								class="block text-gray-700 text-sm font-bold mb-2"
+								for="update-fundraiser-status"
+								>Status</label
+							>
+							<select
+								class="w-full p-3 border rounded-lg text-gray-700"
+								id="update-fundraiser-status"
+								name="status"
+							>
+								<option value="active">Active</option>
+								<option value="inactive">Inactive</option>
+								<option value="completed">Completed</option>
+							</select>
+						</div>
+					</div>
+					<div class="grid grid-cols-1 my-2 md:grid-cols-2 gap-6">
+						<div>
+							<label
+								class="block text-gray-700 text-sm font-bold mb-2"
+								for="update-fundraiser-city"
+								>City</label
+							>
+							<input
+								class="w-full p-3 border rounded-lg text-gray-700"
+								id="update-fundraiser-city"
+								name="fundraiser-city"
+								type="text"
+								placeholder="Update Fundraiser City"
+								required
+							/>
+						</div>
+						<div>
+							<label
+								class="block text-gray-700 text-sm font-bold mb-2"
+								for="update-fundraiser-title"
+								>Organizer</label
+							>
+							<input
+								class="w-full p-3 border rounded-lg text-gray-700"
+								id="update-fundraiser-organizer"
+								name="organizer"
+								type="text"
+								placeholder="Update Organizer"
+								required
+							/>
+						</div>
+					</div>
+					<div class="mt-6 text-center">
+						<button
+							class="bg-blue-600 text-white py-3 px-6 rounded-lg font-bold hover:bg-blue-500"
+							id="update-fundraiser-btn"
+						>
+							Update Fundraiser
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<script>
+			fetch("/api/categories")
+				.then((response) => response.json())
+				.then((data) => {
+					const categoryList = document.getElementById("categories-list");
+					data.forEach((category) => {
+						const row = `
+                        <tr>
+                            <td class="border px-4 py-2">${category.id}</td>
+                            <td class="border px-4 py-2">${category.name}</td>
+                        </tr>
+                    `;
+						categoryList.innerHTML += row;
+					});
+				});
+
+			let fundraisers;
+			// Fetch all fundraisers and populate the table
+			fetch("/api/fundraisers")
+				.then((response) => response.json())
+				.then((data) => {
+					fundraisers = data;
+					const fundraiserList = document.getElementById("fundraiser-list");
+					data.forEach((fundraiser) => {
+						const row = `
+                        <tr>
+                            <td class="border px-4 py-2">${fundraiser.id}</td>
+                            <td class="border px-4 py-2">${
+															fundraiser.caption
+														}</td>
+                            <td class="border px-4 py-2"><b>AUD</b> ${
+															fundraiser.target_fund
+														}</td>
+                            <td class="border px-4 py-2"><b>AUD</b> ${
+															fundraiser.current_fund
+														}</td>
+                            <td class="border px-4 py-2">${
+															fundraiser.active ? "Active" : "Inactive"
+														}</td>
+                            <td class="border px-4 py-2">
+                                <button class="text-red-600 hover:text-red-800" onclick="deleteFundraiser('${
+																	fundraiser.id
+																}')">Delete</button>
+                                <button class="text-green-600 hover:text-green-800" onclick="fill('${
+																	fundraiser.id
+																}')">Update</button>
+
+                                <a class="text-blue-600 hover:text-blue-800" href="/fundraisers/${
+																	fundraiser.id
+																}">View </>
+                           
+                                </td>
+                        </tr>
+                    `;
+						fundraiserList.innerHTML += row;
+					});
+				});
+
+			function fill(id) {
+				const elem = fundraisers.filter((fundraiser) => fundraiser.id == id);
+				const fundraiser = document.getElementById("update-fundraiser-id");
+				fundraiser.value = id;
+				const caption = document.getElementById("update-fundraiser-title");
+				caption.value = elem[0].caption;
+				const target_fund = document.getElementById("update-fundraiser-goal");
+				target_fund.value = elem[0].target_fund;
+				const status = document.getElementById("update-fundraiser-status");
+				status.value = elem[0].active == 1 ? "active" : "inactive";
+				const city = document.getElementById("update-fundraiser-city");
+				city.value = elem[0].city;
+				const organizer = document.getElementById(
+					"update-fundraiser-organizer"
+				);
+				organizer.value = elem[0].organizer;
+
+				location.assign("#update-fundraiser-form");
+			}
+
+			// Add a new fundraiser
+			document
+				.getElementById("save-fundraiser-btn")
+				.addEventListener("click", function (event) {
+					event.preventDefault();
+					const caption = document.getElementById("fundraiser-title").value;
+					const target_fund = document.getElementById("fundraiser-goal").value;
+					const city = document.getElementById("fundraiser-city").value;
+					const organizer = document.getElementById(
+						"fundraiser-organizer"
+					).value;
+					const status = document.getElementById("fundraiser-status").value;
+					const category_id = document.getElementById(
+						"fundraiser-category"
+					).value;
+
+					fetch("/api/fundraisers", {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({
+							caption,
+							target_fund,
+							organizer,
+							city,
+							active: status,
+							category_id,
+							current_fund: 0,
+						}),
+					}).then((response) => {
+						if (response.ok) {
+							alert("Fundraiser created successfully!");
+							location.reload();
+						} else {
+							alert("Failed to create fundraiser.");
+						}
+					});
+				});
+
+			// Update a fundraiser
+			document
+				.getElementById("update-fundraiser-btn")
+				.addEventListener("click", function (event) {
+					event.preventDefault();
+					const id = document.getElementById("update-fundraiser-id").value;
+					const caption = document.getElementById(
+						"update-fundraiser-title"
+					).value;
+					const target_fund = document.getElementById(
+						"update-fundraiser-goal"
+					).value;
+					const status = document.getElementById(
+						"update-fundraiser-status"
+					).value;
+					const city = document.getElementById("update-fundraiser-city").value;
+					const organizer = document.getElementById(
+						"update-fundraiser-organizer"
+					).value;
+
+					fetch(`/api/fundraisers/${id}`, {
+						method: "PUT",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({
+							caption,
+							target_fund,
+							active: status === "active" || status === "completed" ? 1 : 0,
+							city,
+							organizer,
+						}),
+					}).then((response) => {
+						if (response.ok) {
+							alert("Fundraiser updated successfully!");
+							location.reload();
+						} else {
+							alert("Failed to update fundraiser.");
+						}
+					});
+				});
+
+			// Delete a fundraiser
+			function deleteFundraiser(id) {
+				if (confirm("Are you sure you want to delete this fundraiser?")) {
+					fetch(`/api/fundraisers/${id}`, {
+						method: "DELETE",
+					})
+						.then((response) => {
+							if (response.ok) {
+								alert("Fundraiser deleted successfully!");
+								location.reload();
+							} else {
+								return response.json().then((data) => {
+									alert(`Failed to delete fundraiser: ${data.error}`);
+								});
+							}
+						})
+						.catch((err) => {
+							alert(`Error : ${error}`);
+						});
+				}
+			}
+		</script>
+	</body>
+</html>

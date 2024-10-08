@@ -1,4 +1,4 @@
-// const path = require("path");
+const path = require("path");
 const express = require("express");
 const cors = require("cors");
 
@@ -10,9 +10,27 @@ const donationRouter = require("./routes/donation.routes");
 const searchRouter = require("./routes/search.routes");
 const { createConnection } = require("./crowdfunding_db");
 
-app.use(cors({ origin: ["http://localhost:3000", "http://127.0.0.1:3000"] }));
+app.use(cors());
 
-// app.use("/", express.static(path.join(__dirname, "public")));
+app.use("/", express.static(path.join(__dirname, "public")));
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+app.get("/admin", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "admin.html"));
+});
+app.get("/donate/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "donate.html"));
+});
+app.get("/fundraisers/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "fundraiser.html"));
+});
+app.get("/search", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "search.html"));
+});
+
+
 
 
 app.use(express.json());
@@ -26,7 +44,7 @@ app.use("*", (_req, res) => {
   res.status(404).send();
 });
 
-const PORT = 8080;
+const PORT = 3000;
 
 async function startServer() {
   try {
