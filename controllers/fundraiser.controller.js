@@ -191,7 +191,7 @@ async function deleteFundraiser(req, res) {
     const fundraiserId = req.params.id;
 
     const checkDonationsQuery = `
-        SELECT COUNT(*) AS donationCount FROM DONATION WHERE FUNDRAISER_ID = ?
+        SELECT COUNT(*) AS donationCount FROM donation WHERE FUNDRAISER_ID = ?
     `;
 
     try {
@@ -204,7 +204,7 @@ async function deleteFundraiser(req, res) {
         }
 
         const deleteFundraiserQuery = `
-            DELETE FROM FUNDRAISERS WHERE id = ?
+            DELETE FROM fundraisers WHERE id = ?
         `;
 
         const data = await dbConnection.execute(deleteFundraiserQuery, [fundraiserId]);
