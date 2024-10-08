@@ -6,33 +6,27 @@ const app = express();
 
 const categoryRouter = require("./routes/category.routes");
 const fundraiserRouter = require("./routes/fundraiser.routes");
+const donationRouter = require("./routes/donation.routes");
+const searchRouter = require("./routes/search.routes");
 const { createConnection } = require("./crowdfunding_db");
 
-app.use(cors({ origin: "*" }));
+app.use(cors({ origin: ["http://localhost:3000", "http://127.0.0.1:3000"] }));
 
 // app.use("/", express.static(path.join(__dirname, "public")));
+
+
 app.use(express.json());
 
 app.use("/api/categories", categoryRouter);
+app.use("/api/donations", donationRouter);
 app.use("/api/fundraisers", fundraiserRouter);
-
-// app.get("/", (req, res) => {
-//     res.sendFile(path.join(__dirname, "public", "index.html"));
-// });
-
-// app.get("/search", (req, res) => {
-//     res.sendFile(path.join(__dirname, "public", "search.html"));
-// });
-
-// app.get("/fundraiser", (req, res) => {
-//     res.sendFile(path.join(__dirname, "public", "details.html"));
-// });
+app.use("/api/search", searchRouter);
 
 app.use("*", (_req, res) => {
   res.status(404).send();
 });
 
-const PORT = 3000;
+const PORT = 8080;
 
 async function startServer() {
   try {

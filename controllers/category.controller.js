@@ -3,14 +3,14 @@ const { getConnection } = require('../crowdfunding_db');
 async function getCategories(_req, res) {
     const dbConnection = getConnection();
     try {
-        const [categories] = await dbConnection.query(
-            'SELECT `category_id` as categoryId, `name` FROM `category` ORDER BY `categoryId` ASC'
+        const [results] = await dbConnection.query(
+            'SELECT * FROM categories'
         );
 
-        return res.json({ data: { categories } });
+        return res.json(results);
     } catch (error) {
         console.log(error);
-        return res.status(500).send('Server error');
+        return res.status(500).json({ error: 'Failed to retrieve categories' });
     }
 }
 
